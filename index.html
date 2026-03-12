@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-card">
+        <h2>Вітаємо в TaskFlow</h2>
+        <p>Введіть ім'я, щоб увійти до свого розкладу</p>
+        <input type="text" id="usernameInput" placeholder="Ваше ім'я..." />
+        <button id="loginBtn">Увійти</button>
+      </div>
+    </div>
+
+    <div class="container hidden" id="app-container">
+      <aside class="sidebar">
+        <h2 class="logo">TaskFlow</h2>
+        <nav id="main-nav">
+          <button class="nav-btn active" data-page="dashboard">
+            Dashboard
+          </button>
+          <button class="nav-btn" data-page="all-tasks">Усі задачі</button>
+        </nav>
+        <button id="logoutBtn" class="logout-btn">Вийти</button>
+      </aside>
+
+      <main class="content">
+        <div class="left-column">
+          <div id="dashboard-view" class="page-content active">
+            <section class="calendar">
+              <div class="calendar-header">
+                <h3 id="monthDisplay"></h3>
+                <div class="calendar-nav">
+                  <button id="prevMonth">&lt;</button>
+                  <button id="nextMonth">&gt;</button>
+                </div>
+              </div>
+              <div class="calendar-weekdays">
+                <div>ПН</div>
+                <div>ВТ</div>
+                <div>СР</div>
+                <div>ЧТ</div>
+                <div>ПТ</div>
+                <div>СБ</div>
+                <div>НД</div>
+              </div>
+              <div class="calendar-grid"></div>
+            </section>
+
+            <section class="stats-filters">
+              <div class="filter-card active" data-filter="all">
+                <span class="filter-label">Усі</span>
+                <span id="stat-total" class="filter-value">0</span>
+              </div>
+              <div class="filter-card" data-filter="pending">
+                <span class="filter-label">Очікують</span>
+                <span id="stat-pending" class="filter-value">0</span>
+              </div>
+              <div class="filter-card" data-filter="completed">
+                <span class="filter-label">Виконані</span>
+                <span id="stat-completed" class="filter-value">0</span>
+              </div>
+            </section>
+
+            <section class="daily-progress">
+              <h3>Прогрес дня</h3>
+              <div class="progress-bar"><div class="progress-fill"></div></div>
+              <p class="progress-text">0 з 0 задач</p>
+            </section>
+
+            <section class="quick-add">
+              <div class="add-container">
+                <div class="task-input-wrapper">
+                  <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Що потрібно зробити?"
+                  />
+                </div>
+                <div class="note-input-wrapper">
+                  <input
+                    type="text"
+                    id="noteInput"
+                    placeholder="Додати замітку..."
+                  />
+                </div>
+                <div class="category-select">
+                  <span class="mini-label">Категорія:</span>
+                  <div class="category-options">
+                    <label class="cat-opt"
+                      ><input
+                        type="radio"
+                        name="cat"
+                        value="none"
+                        checked
+                      /><span>Немає</span></label
+                    >
+                    <label class="cat-opt"
+                      ><input type="radio" name="cat" value="home" /><span
+                        >Дім</span
+                      ></label
+                    >
+                    <label class="cat-opt"
+                      ><input type="radio" name="cat" value="work" /><span
+                        >Робота</span
+                      ></label
+                    >
+                    <label class="cat-opt"
+                      ><input type="radio" name="cat" value="other" /><span
+                        >Інше</span
+                      ></label
+                    >
+                  </div>
+                </div>
+                <button id="addTaskBtn">Додати задачу</button>
+              </div>
+            </section>
+          </div>
+
+          <div id="all-tasks-view" class="page-content">
+            <div class="feed-header">
+              <div class="header-top">
+                <h3>Мій Розклад</h3>
+                <div class="global-stat">
+                  <span>Всього: <b id="global-total-count">0</b></span>
+                </div>
+              </div>
+              <div class="search-box">
+                <input type="text" id="globalSearch" placeholder="Пошук..." />
+              </div>
+              <div class="category-filters" id="categoryFilters">
+                <button class="cat-filter active" data-cat="all">Всі</button>
+                <button class="cat-filter" data-cat="home">Дім</button>
+                <button class="cat-filter" data-cat="work">Робота</button>
+                <button class="cat-filter" data-cat="other">Інше</button>
+              </div>
+            </div>
+            <div id="smartFeed" class="smart-feed"></div>
+          </div>
+        </div>
+
+        <section class="tasks-panel">
+          <div class="panel-header">
+            <h3 id="panelDateTitle">Виберіть день</h3>
+          </div>
+          <div id="taskList"></div>
+        </section>
+
+        <aside class="right-panel hidden-panel" id="rightPanel">
+          <div class="notes-container">
+            <div class="notes-header">
+              <h3>Нотатки</h3>
+              <span class="status-save" id="saveStatus">Збережено</span>
+            </div>
+            <textarea
+              id="quickNotes"
+              placeholder="Напишіть щось цікаве..."
+            ></textarea>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
